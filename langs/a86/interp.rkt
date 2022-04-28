@@ -66,6 +66,10 @@
     (set-ffi-obj! "error_handler" libt.so _pointer
                   (function-ptr (λ () (raise 'err)) (_fun _-> _void))))
 
+  (when (ffi-obj-ref "type_error_handler" libt.so (thunk #f))
+    (set-ffi-obj! "type_error_handler" libt.so _pointer
+                  (function-ptr (λ (e actual) (raise 'err)) (_fun _int64 _int64 _-> _void))))
+
 
   (define current-heap #f)
 
